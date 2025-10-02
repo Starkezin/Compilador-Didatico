@@ -1,4 +1,4 @@
-public class Interpretador {
+class Interpretador {
 
     public int interpretador(ArvoreSintatica tree){
         if (tree instanceof Num) {
@@ -20,6 +20,26 @@ public class Interpretador {
         }
         throw new IllegalArgumentException("Tipo de nó desconhecido: " + tree.getClass().getName());
     }
- 
 
+    public static void main(String[]args)
+	{	
+		ArvoreSintatica arv=null;
+	
+		try{
+
+			AnaliseLexica al = new AnaliseLexica(args[0]);
+			Parser as = new Parser(al);
+		
+			arv = as.parseProg();
+
+			Interpretador interp = new Interpretador();
+			int resultado = interp.interpretador(arv);
+			System.out.println("Resultado: " + resultado);
+
+		}catch(Exception e)
+		{			
+			System.out.println("Erro de compilação:\n" + e);
+		}
+	}
+ 
 }
