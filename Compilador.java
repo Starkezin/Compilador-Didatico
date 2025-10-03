@@ -1,3 +1,5 @@
+import java.io.*;
+
 class Compilador{
 
 	public static void main(String[]args)
@@ -14,7 +16,16 @@ class Compilador{
 			
 			CodeGen backend = new CodeGen();
 			String codigo = backend.geraCodigo(arv);
-			System.out.println(codigo);
+
+            String outputFile = "output.txt";
+            
+            try (FileWriter writer = new FileWriter(outputFile)) {
+                writer.write(codigo);
+                System.out.println("Compilado em: " + outputFile);
+            } catch (IOException e) {
+                System.out.println("Erro ao salvar arquivo: " + e.getMessage());
+            }
+
 
 		}catch(Exception e)
 		{			
